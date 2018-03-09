@@ -5,23 +5,6 @@ const LazyLoad = require('../lazy_load')
 const FadeImage = require('../fade_image')
 const mediaQueries = require('../media_queries')
 
-function truncate(input, len, fromStart) {
-  var str = input
-  if (fromStart) {
-    str = reverse(str)
-  }
-  if (str.length > len) {
-    str = str.substr(0, len)
-    if (str[len] !== ' ') {
-      str = str.concat(' ')
-    }
-    str = str.concat('...')
-  }
-  if (fromStart) {
-    str = reverse(str)
-  }
-  return str
-}
 let BoardCard = React.createClass({
   propTypes: {
     lazyLoad: React.PropTypes.bool,
@@ -78,16 +61,12 @@ let BoardCard = React.createClass({
               .join(' / ')}
           </div>
           <div className="url">
-            {truncate(
-              this.props.data.id
-                .split('/')
-                .slice(0, 2)
-                .join(' / '),
-              30,
-              true
-            )}
+            {this.props.data.id
+              .split('/')
+              .slice(0, 2)
+              .join(' / ')}
           </div>
-          <div className="summary">{truncate(this.props.data.summary, 85)}</div>
+          <div className="summary">{this.props.data.summary}</div>
         </a>
       </div>
     )
